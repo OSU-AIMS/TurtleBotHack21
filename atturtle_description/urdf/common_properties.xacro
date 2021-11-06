@@ -17,4 +17,11 @@
         </material>
     </xacro:property>
 
+    <xacro:property name="material_green">
+        <material name="green">
+            <color rgba="0.0 0.8 0 1" />
+        </material>
+    </xacro:property>
+
+
 </robot>
