@@ -1,3 +1,3 @@
 <launch>
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find atturtle_description)/urdf/atturtle.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find atturtle_description)/urdf/atturtle.xacro" />
 </launch>

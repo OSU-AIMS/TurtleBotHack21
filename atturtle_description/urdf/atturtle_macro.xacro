@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-<xacro:macro name="motoman_ms210" params="prefix">
-    <xacro:include filename="$(find motoman_resources)/urdf/common_materials.xacro"/>
+<xacro:macro name="atturtle" params="prefix">
+    <xacro:include filename="$(find atturtle_description)/urdf/common_properties.xacro"/>
 
     <!-- link list -->
     <!-- base_footprint is a fictitious link(frame) that is on the ground right below link_base origin, navigation stack depends on this frame -->
@@ -22,16 +22,16 @@
     </link>
     <link  name="${prefix}link_base">
         <visual>
-            <origin xyz="0 0 0.0.0127" rpy="0 0 0" />
+            <origin xyz="0 0 0.025" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.2" radius="0.15875"/>
+                <cylinder length="0.0635" radius="0.15875"/>
             </geometry>
             <xacro:material_light_grey/>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0.025" rpy="0 0 0" />
             <geometry>
-                <cylinder length="0.2" radius="0.15875"/>
+                <cylinder length="0.0635" radius="0.15875"/>
             </geometry>
         </collision>
     </link>
@@ -86,20 +86,20 @@
         <child link="${prefix}link_base" />
     </joint>
     <joint name="${prefix}left_wheel_joint" type="continuous">
-	    <origin xyz="0 0.13 0.015" rpy="0 0 0"/>
+	    <origin xyz="0 0.1016 0.015" rpy="0 0 0"/>
 	    <parent link="${prefix}link_base"/>
 	    <child link="${prefix}left_wheel_link"/>
 	    <axis xyz="0 1 0"/>
     </joint>
     <joint name="${prefix}right_wheel_joint" type="continuous">
-	    <origin xyz="0 -0.13 0.015" rpy="0 0 0"/>
+	    <origin xyz="0 -0.1016 0.015" rpy="0 0 0"/>
 	    <parent link="${prefix}link_base"/>
 	    <child link="${prefix}right_wheel_link"/>
 	    <axis xyz="0 1 0"/>
     </joint>
     <joint name="${prefix}rear_castor_joint" type="fixed">
-	    <origin xyz="-0.13 0 0.0" rpy="0 0 0"/>
-	    <parent link="${prefix}base_link"/>
+	    <origin xyz="0.1143 0 0" rpy="0 0 0"/>
+	    <parent link="${prefix}link_base"/>
 	    <child link="${prefix}rear_wheel_link"/>
 	    <axis xyz="0 1 0"/>
 	</joint>

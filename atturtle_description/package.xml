@@ -1,26 +1,14 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="3">
+<package format="2">
+    
     <name>atturtle_description</name>
-    <version>0.0.0</version>
-    <description>
-        ATturtle Robot Description Package
-    </description>
+    <version>0.1.0</version>
+    <description>The atturtle_description package</description>
 
-    <maintainer email="acbuynak@gmail.com">acbuynak</maintainer>
+    <license>Apache 2.0</license>
+    <maintainer email="buynak.9@osu.edu">acbuynak @ The Ohio State University</maintainer>
+    <url type="AIMS Website">https://cdme.osu.edu/aims-lab</url>
 
-    <license>Apache License 2.0</license>
-
-    <exec_depend>joint_state_publisher</exec_depend>
-    <exec_depend>launch</exec_depend>
-    <exec_depend>launch_ros</exec_depend>
-    <exec_depend>robot_state_publisher</exec_depend>
-    <exec_depend>rviz2</exec_depend>
-    <exec_depend>urdf</exec_depend>
-    <exec_depend>xacro</exec_depend>
-
-    <export>
-        <build_type>ament_cmake</build_type>
-    </export>
+    <buildtool_depend>catkin</buildtool_depend>
 
 </package>
