@@ -79,6 +79,8 @@
     </link>
     <!-- end of link list -->
 
+
+
     <!-- joint list -->
     <joint name="${prefix}footprint-base" type="fixed">
         <origin xyz="0 0 0.017" rpy="0 0 0" />        
@@ -90,12 +92,16 @@
 	    <parent link="${prefix}link_base"/>
 	    <child link="${prefix}left_wheel_link"/>
 	    <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="100"/>
+        <joint_properties damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}right_wheel_joint" type="continuous">
 	    <origin xyz="0 -0.1016 0.015" rpy="0 0 0"/>
 	    <parent link="${prefix}link_base"/>
 	    <child link="${prefix}right_wheel_link"/>
 	    <axis xyz="0 1 0"/>
+        <limit effort="100" velocity="100"/>
+        <joint_properties damping="0.0" friction="0.0"/>
     </joint>
     <joint name="${prefix}rear_castor_joint" type="fixed">
 	    <origin xyz="0.1143 0 0" rpy="0 0 0"/>
