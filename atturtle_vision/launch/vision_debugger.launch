@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Camera Stream Debugger -->
+
+<launch>
+
+    <!--  SubSystem Setup: Vision Support -->
+    <include file="$(find atturtle_vision)/launch/vision_system.launch" >
+        <arg name="max_distance" default="3" /><!-- Max Depth Threshold (meters) -->
+    </include>
+
+
+     <!-- Open RQT for analysis with a custom perspective -->
+    <node name = "RQT_TestViewer" pkg = "rqt_gui" type = "rqt_gui" respawn = "false" output = "screen" 
+        args = "--perspective-file $(find atturtle_vision)/config/camera_feed_debug.perspective"/>
+
+
+</launch>
