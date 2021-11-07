@@ -20,6 +20,7 @@ from std_msgs.msg import Int32
 import serial
 from time import sleep
 
+import re
 
 
 class ArduinoControlInterface():
@@ -43,37 +44,29 @@ class ArduinoControlInterface():
         """
         
         try:
-
-
             # Build Command Message
             command = "M" + whichmotor + data
             print(command)
 
-
-
             # Send Command Message
-
-
-
-
+            self.serialObj.write(command.encode('utf-8'))
 
             # Recieve Encoder Message
-            
-
+            # TODO: This is NOT a really great way to do this. We are just trusting that the arduino
+            # will always send the odometry in this order. A Better REGEX parsing would be significantly better
+            odo_left = self.serialObj.read_until('\n')
+            odo_right = self.serialObj.read_until('\n')
 
             # Convert from encoder to Odom travel
-
-
-
+            # TODO: seriously check this code. Very sketch.
+            # source from: 
+            # https://stackoverflow.com/questions/4289331/how-to-extract-numbers-from-a-string-in-python
+            odo_left = re.findall(r'\d+', odo_left)[0]
+            odo_right = re.findall(r'\d+', odo_right)[0]
 
             # Publish encoder to topic
-            # self.pub_leftOdom = 
-            # self.pub_rightOdom = 
-
-
-
-
-
+            self.pub_leftOdom = odo_left
+            self.pub_rightOdom = odo_right
 
         except rospy.ROSInterruptException:
             exit()
