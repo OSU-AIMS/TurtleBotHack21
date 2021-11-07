@@ -20,7 +20,6 @@ import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import cv2
-#import imutils
 
 
 
@@ -56,45 +55,43 @@ class EnvisionTarget():
 
         try:
             cv_image = self.bridge.imgmsg_to_cv2(data, desired_encoding = 'passthrough')
-            #cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
-            #LBDet = cv2.CascadeClassifier('haarcascade_lowerbody.xml')
+
+            scale_percent = 50 # percent of original size
+            width = int(cv_image.shape[1] * scale_percent / 100)
+            height = int(cv_image.shape[0] * scale_percent / 100)
+            dim = (width, height)
+  
+            # resize image
+            cv_image = cv2.resize(cv_image, dim, interpolation = cv2.INTER_AREA)
 
             hog = cv2.HOGDescriptor()
             hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
-            while(True):
 
-                #color = imutils.resize(cv_image,
-                #                       width=min(400, color.shape[1]))
+            print('scanning...')
+            (regions, _) = hog.detectMultiScale(cv_image,
+                                                winStride=(4, 4),
+                                                padding=(8, 8),
+                                                scale=1.02)
 
-                #color = cv2.cvtColor(color, cv2.COLOR_BGR2GRAY)
-                #LB = LBDet.detectMultiScale(cv_image,1.1,4)
-                #UB = UPDet.detectMultiScale(color,1.05,5)
-                #FB = FBDet.detectMultiScale(color,1.1,4)
-                (regions, _) = hog.detectMultiScale(cv_image,
-                                                    winStride=(4, 4),
-                                                    padding=(4, 4),
-                                                    scale=1.05)
-
-                # Drawing the regions in the Image
-                for (x, y, w, h) in regions:
-                    cv2.rectangle(cv_image, (x, y),
-                                  (x + w, y + h),
-                                  (255, 0, 0), 2)
-                    print(x)
-                    print(y)
+            # Drawing the regions in the Image
+            for (x, y, w, h) in regions:
+                cv2.rectangle(cv_image, (x, y),
+                              (x + w, y + h),
+                              (255, 0, 0), 2)
+                print('person detected :)')
 
 
-                # Drawing the regions in the Image
-                #for (x, y, w, h) in LB:
-                #    cv2.rectangle(cv_image, (x, y),
-                #                  (x + w, y + h),
-                #                  (0, 0, 0), 2)
+            # Drawing the regions in the Image
+            #for (x, y, w, h) in LB:
+            #    cv2.rectangle(cv_image, (x, y),
+            #                  (x + w, y + h),
+            #                  (0, 0, 0), 2)
 
-                # Showing the output Image
-                #cv2.imshow("Image", color)
-                out_image = self.bridge.cv2_to_imgmsg(cv_image, "bgr8")
-                self.pub_targetImage.publish(out_image)
+            # Showing the output Image
+            #cv2.imshow("Image", color)
+            out_image = self.bridge.cv2_to_imgmsg(cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB), "bgr8")
+            self.pub_targetImage.publish(out_image)
 
 
 
