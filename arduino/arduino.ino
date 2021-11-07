@@ -34,7 +34,7 @@ void setup() {
   pinMode(RIGHT_ENCODER, INPUT_PULLUP); 
   
   Serial.begin(115200);
-  Serial.setTimeout(10);
+  Serial.setTimeout(1);
   
   attachInterrupt(digitalPinToInterrupt(LEFT_ENCODER), left_encoder, FALLING);
   attachInterrupt(digitalPinToInterrupt(RIGHT_ENCODER), right_encoder, FALLING);
@@ -42,7 +42,6 @@ void setup() {
 //  TCCR1B = TCCR1B & B11111000 | B00000001;
 //  TCCR2B = TCCR2B & B11111000 | B00000001;
 //  TCCR0B = TCCR0B & B11111000 | B00000001;
-
 }
 
 void loop() {
@@ -56,7 +55,6 @@ void loop() {
     // say what you got:
 //    Serial.print(incomingByte);
     executeInput(incomingByte);
-    Serial.flush();
   }
 }
 
@@ -82,15 +80,24 @@ void executeInput(String input){
 
   long val;
 
-  if (input.startsWith("ML")){
-    val = strip(input);
-    Serial.println((float)(val - 512)/512);
-    moveMotor((float)(val - 512)/512,LEFT_PIN_A, LEFT_PIN_B);
-  }
-  else if(input.startsWith("MR")){
-    val = strip(input);
-    Serial.println((float)(val - 512)/512);
-    moveMotor((float)(val - 512)/512,RIGHT_PIN_A, RIGHT_PIN_B);
+  while(input.length() > 0){
+
+    if (input.startsWith("ML")){
+      val = strip(input);
+      Serial.println((float)(val - 512)/512);
+      moveMotor((float)(val - 512)/512,LEFT_PIN_A, LEFT_PIN_B);
+      input.remove(0,String(val).length());
+    }
+    else if(input.startsWith("MR")){
+      val = strip(input);
+      Serial.println((float)(val - 512)/512);
+      moveMotor((float)(val - 512)/512,RIGHT_PIN_A, RIGHT_PIN_B);
+      input.remove(0,String(val).length());
+    }
+    else if(input.startsWith("SONG")){playSong();}
+    else{
+      input.remove(0,1);
+    }
   }
 
   writeEncoderData();
