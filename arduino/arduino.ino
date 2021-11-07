@@ -16,7 +16,7 @@ String incomingByte;    // for incoming serial data
 int song_notes[] = {76, 78, 78,  80,78,80,78,76,78, 76, 78, 83,  81, 80, 78,  76,   73, 69, 71,76, 78, 78,  80,69,68,66,       64, 66,71,80,83,85,83,78      };
 int song_time[] = {333,333,333,1666,66,66,66,66,66, 333,333,1666,333,333, 50, 616, 1333, 999,999,333,333,333,1666,166,166,166,166,333,1666,333,333,1333,1333,2999      };
 
-int num = 19;
+int num = 34;
 
 
 unsigned long int left = 0, right = 0;
@@ -131,7 +131,7 @@ void writeEncoderData(){
 
 
 void playSong(){
-  for(int i = 0; i < sizeof(song_notes)/sizeof(song_notes[0]); i++){
+  for(int i = 0; i < num; i++){
     playNote(song_notes[i], song_time[i]);
   }
 }
