@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 <package format="2">
-    
-    <name>atturtle_description</name>
+
+    <name>atturtle_control</name>
     <version>0.1.0</version>
-    <description>The atturtle_description package</description>
+    <description>The atturtle_control package</description>
 
     <maintainer email="buynak.9@osu.edu">acbuynak @ The Ohio State University</maintainer>
     <license>Apache 2.0</license>
     <url type="AIMS Website">https://cdme.osu.edu/aims-lab</url>
 
     <buildtool_depend>catkin</buildtool_depend>
+    <exec_depend>rospy</exec_depend>
+    <exec_depend>roscpp</exec_depend>
 
 </package>

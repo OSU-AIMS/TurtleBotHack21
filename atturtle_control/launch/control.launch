@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Tier1 Launch File for Controlling Robot -->
+
+<!-- Launch Python Script -->
+<launch>
+    <node pkg="atturtle_control" type="example.py" name="example" output="screen" launch-prefix="gnome-terminal --command" />
+</launch>
