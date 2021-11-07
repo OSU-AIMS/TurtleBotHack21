@@ -11,8 +11,7 @@
 
 
      <!-- Open RQT for analysis with a custom perspective -->
-    <node name = "RQT_TestViewer" pkg = "rqt_gui" type = "rqt_gui" respawn = "false" output = "screen" 
-        args = "--perspective-file $(find atturtle_vision)/config/camera_feed_debug.perspective"/>
+    <node name = "RQT_TestViewer" pkg = "rqt_gui" type = "rqt_gui" respawn = "false" output = "screen" args = "--perspective-file $(find atturtle_vision)/config/camera_feed_debug.perspective"/>
 
 
 </launch>
